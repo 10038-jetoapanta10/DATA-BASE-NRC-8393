@@ -1,0 +1,859 @@
+
+--------------------------TABLA COORDENADA INSERT-----------------------------------------------------------------------------
+create or replace procedure "InsertarCoordenada" (NBR_COOR_ID in number, VAR_COOR_LATITUD in varchar2, VAR_COOR_LONGITUD in varchar2)
+AS
+Begin
+    INSERT INTO "TB_COORDENADA" VALUES(nbr_coor_id,var_coor_latitud,var_coor_longitud );
+End;
+/
+exec "InsertarCoordenada" (5010,'0.8483872629368332','78.55959786132831');
+
+COLUMN nbr_coor_id FORMAT 99999
+COLUMN var_coor_latitud FORMAT A20
+COLUMN var_coor_longitud FORMAT A20
+
+SELECT * FROM TB_Coordenada WHERE "NBR_COOR_ID" like 5010;
+-------------------------- TABLA POLICIA INSERT--------------------------------------------------------------------------------
+
+create or replace procedure "MiembroPolicia" (NBR_POL_ID in number, VAR_POL_NOMBRE in varchar2, VAR_POL_CARGO in varchar2 ,VAR_POL_SALARIO in varchar2 ,VAR_POL_STATUS in varchar2)
+AS
+Begin
+    INSERT INTO "TB_POLICIA" VALUES(NBR_POL_ID , VAR_POL_NOMBRE , VAR_POL_CARGO  ,VAR_POL_SALARIO ,VAR_POL_STATUS );
+End;
+/
+exec "MiembroPolicia" (6666,'Anthony Quispe','Cabo','1000','Activo');
+
+COLUMN NBR_POL_ID FORMAT 9999
+COLUMN VAR_POL_NOMBRE FORMAT A20
+COLUMN VAR_POL_CARGO FORMAT A15
+COLUMN VAR_POL_SALARIO FORMAT A15
+COLUMN VAR_POL_STATUS FORMAT A10
+
+SELECT NBR_POL_ID, VAR_POL_NOMBRE, VAR_POL_CARGO, VAR_POL_SALARIO, VAR_POL_STATUS FROM TB_POLICIA WHERE NBR_POL_ID = 6666;
+
+
+----------------------------TABLA UPC INSERT---------------------------------------------------------------------------------------------------------------------
+
+create or replace procedure "InserteUPC" (NBR_UPC_ID in number, VAR_UPC_NOMBRE in varchar2, VAR_UPC_STATUS in varchar2,NBR_CIU_ID in NUMBER)
+AS
+Begin
+    INSERT INTO "TB_UPC" VALUES(nbr_upc_id,var_upc_nombre,var_upc_status,nbr_ciu_id );
+End;
+/
+exec "InserteUPC" (5011,'San Juan','Activo',5);
+
+COLUMN nbr_upc_id FORMAT 99999
+COLUMN var_upc_nombre FORMAT A20
+COLUMN var_upc_status FORMAT A10
+COLUMN nbr_ciu_id FORMAT 99999
+
+SELECT * FROM TB_UPC WHERE "NBR_UPC_ID" like 5011;
+
+------------------------TABLA DELINCUENTE INSERT---------------------------------------------------------------------------------------------------------
+
+create or replace procedure "InsertarDelincuente" (NBR_DELIN_ID in number,VAR_DELIN_NOMBRE in varchar2,VAR_DELIN_PANDILLA in varchar2,VAR_DELIN_APODO in varchar2 ,VAR_DELIN_STATUS in varchar2)
+AS
+Begin
+    INSERT INTO "TB_DELINCUENTE" VALUES(nbr_delin_id ,var_delin_nombre, var_delin_pandilla  ,var_delin_apodo ,var_delin_status );
+End;
+/
+exec "InsertarDelincuente" (5001,'Daniel Sosa','Vatos','Chuky','Activo');
+
+COLUMN NBR_DELIN_ID FORMAT 9999 HEADING 'ID'
+COLUMN VAR_DELIN_NOMBRE FORMAT A20 HEADING 'Nombre'
+COLUMN VAR_DELIN_PANDILLA FORMAT A20 HEADING 'Pandilla'
+COLUMN VAR_DELIN_APODO FORMAT A20 HEADING 'Apodo'
+COLUMN VAR_DELIN_STATUS FORMAT A10 HEADING 'Estatus'
+
+SELECT * FROM TB_DELINCUENTE WHERE "NBR_DELIN_ID" like 5001;
+
+--------------------------TABLA CIVIL INSERT-----------------------------
+create or replace procedure "InserteCiudadano" (NBR_CI_ID in number, VAR_CI_NOMBRE in varchar2, VAR_CI_STATUS in varchar2,NBR_BA_ID in NUMBER)
+
+AS
+Begin
+    INSERT INTO "TB_CIVIL" VALUES( nbr_ci_id , var_ci_nombre , var_ci_status ,nbr_ba_id );
+End;
+/
+
+exec "InserteCiudadano" (5001,'Nayeli Tipantiza','Activo',1);
+
+COLUMN nbr_ci_id FORMAT 99999
+COLUMN var_ci_nombre FORMAT A20
+COLUMN var_ci_status FORMAT A20
+COLUMN nbr_ba_id FORMAT 99999
+SELECT * FROM TB_CIVIL WHERE "NBR_CI_ID" like 5001;
+
+
+----------------------------TABLA INCIDENTE INSERT---------------------------------------------------------------------------------------
+create or replace procedure "InserteIncidente" (NBR_INC_ID in number, VAR_INC_NOMBRE in varchar2, VAR_INC_FECHA in varchar2,  VAR_INC_STATUS in varchar2,NBR_CI_ID in NUMBER)
+AS
+Begin
+    INSERT INTO "TB_INCIDENTE" VALUES( nbr_inc_id,var_inc_nombre,var_inc_fecha,var_inc_status,nbr_ci_id );
+End;
+/
+
+exec "InserteIncidente" (5007,'Robo Joyas','2023-02-16','Caso Activo',8);
+
+COLUMN NBR_INC_ID FORMAT 99999 HEADING 'ID'
+COLUMN VAR_INC_NOMBRE FORMAT A15 HEADING 'Nombre'
+COLUMN VAR_INC_FECHA FORMAT A15 HEADING 'Fecha'
+COLUMN VAR_INC_STATUS FORMAT A15 HEADING 'Estatus'
+COLUMN NBR_CI_ID FORMAT 99999 HEADING 'ID Ciudadano'
+
+SELECT * FROM TB_INCIDENTE WHERE "NBR_INC_ID" like 5007;
+
+----------------------------TABLA INCIDENTE ASALTAR--------------------------------------------------------------------------------------------------------
+create or replace procedure "InserteAsalto" (NBR_ASL_ID in number,VAR_ASL_FORMA_ASALTAR VARCHAR2 ,NBR_BA_ID in NUMBER,NBR_DELIN_ID in number)
+AS
+Begin
+    INSERT INTO "TB_ASALTO" VALUES(nbr_asl_id,var_asl_forma_asaltar,nbr_ba_id,nbr_delin_id  );
+End;
+/
+exec "InserteAsalto" (5001,'Arma Cortopulsante',2,2);
+
+
+COLUMN NBR_asl_ID FORMAT 99999 HEADING 'ID'
+COLUMN VAR_asl_forma_asaltar FORMAT A20 HEADING 'ASALTAR'
+COLUMN NBR_ba_ID FORMAT 99999 HEADING 'ID BARRIO'
+COLUMN NBR_delin_ID FORMAT 99999 HEADING 'ID DELINCUENTE'
+
+SELECT * FROM TB_ASALTO WHERE "NBR_ASL_ID" like 5001;
+---------------------------------------------------------------------------------------
+------------------------------------------UPDATE COORDENADA---------------------------------------------------------------------------------------
+
+CREATE OR REPLACE PROCEDURE "ActualizarCoordenada" (NBRCOORID IN NUMBER , VARCOORLATITUD VARCHAR2, VARCOORLONGITUD VARCHAR2)
+AS
+BEGIN
+    UPDATE "TB_COORDENADA"
+    SET
+   VAR_COOR_LATITUD = VARCOORLATITUD,
+    VAR_COOR_LONGITUD =VARCOORLONGITUD
+    
+    WHERE NBR_COOR_ID = NBRCOORID  ;
+    END;
+/
+ 
+set autoprint on;
+exec "ActualizarCoordenada" (1,'0.8483872629368333','78.55959786132832');
+COLUMN nbr_coor_id FORMAT 99999
+COLUMN var_coor_latitud FORMAT A20
+COLUMN var_coor_longitud FORMAT A20
+
+SELECT * FROM TB_Coordenada WHERE "NBR_COOR_ID" like 1;
+
+-----------------------------------------UPDATE POLICIA---------------------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE "ActualizarPolicia" ( NBRPOLID  IN NUMBER,VARPOLNOMBRE VARCHAR2 , VARPOLCARGO VARCHAR2, VARPOLSALARIO  VARCHAR2, VARPOLSTATUS VARCHAR2 )
+AS
+BEGIN
+    UPDATE "TB_POLICIA"
+    SET
+    VAR_POL_NOMBRE = VARPOLNOMBRE,
+    VAR_POL_CARGO = VARPOLCARGO,
+    VAR_POL_SALARIO = VARPOLSALARIO,
+    VAR_POL_STATUS = VARPOLSTATUS
+    
+    
+    WHERE NBR_POL_ID = NBRPOLID  ;
+    END;
+/
+ 
+set autoprint on;
+exec "ActualizarPolicia" (687,'Sarah Villanueva','General','2000','Activo');
+COLUMN NBR_POL_ID FORMAT 9999
+COLUMN VAR_POL_NOMBRE FORMAT A20
+COLUMN VAR_POL_CARGO FORMAT A15
+COLUMN VAR_POL_SALARIO FORMAT A15
+COLUMN VAR_POL_STATUS FORMAT A10
+
+SELECT NBR_POL_ID, VAR_POL_NOMBRE, VAR_POL_CARGO, VAR_POL_SALARIO, VAR_POL_STATUS FROM TB_POLICIA WHERE NBR_POL_ID = 687;
+
+------------------------------------------UPDATE DELINCUENTE--------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE "ActualizarDelincuente" (  NBRDELINID IN NUMBER,VARDELINNOMBRE VARCHAR2 , VARDELINPANDILLA VARCHAR2, VARDELINAPODO  VARCHAR2,  VARDELINSTATUS VARCHAR2 )
+AS
+BEGIN
+    UPDATE "TB_DELINCUENTE"
+    SET
+     VAR_DELIN_NOMBRE  = VARDELINNOMBRE,
+     VAR_DELIN_PANDILLA = VARDELINPANDILLA,
+    VAR_DELIN_APODO = VARDELINAPODO,
+   VAR_DELIN_STATUS = VARDELINSTATUS
+    
+    
+    WHERE NBR_DELIN_ID = NBRDELINID  ;
+    END;
+/
+ 
+set autoprint on;
+exec "ActualizarDelincuente" (5000,'Cheryl Hayes','New','stephens','Inactivo');
+
+COLUMN NBR_DELIN_ID FORMAT 9999 HEADING 'ID'
+COLUMN VAR_DELIN_NOMBRE FORMAT A20 HEADING 'Nombre'
+COLUMN VAR_DELIN_PANDILLA FORMAT A20 HEADING 'Pandilla'
+COLUMN VAR_DELIN_APODO FORMAT A20 HEADING 'Apodo'
+COLUMN VAR_DELIN_STATUS FORMAT A10 HEADING 'Estatus'
+
+SELECT * FROM TB_DELINCUENTE WHERE "NBR_DELIN_ID" like 5000;
+
+
+-------------------------------------------------UPDATE INCIDENTE-----------------------------------------------------------------------
+CREATE OR REPLACE PROCEDURE "ActualizarIncidente" (  NBRINCID IN NUMBER,VARINCNOMBRE VARCHAR2 , VARINCFECHA VARCHAR2, VARINCSTATUS VARCHAR2,    NBRCIID in NUMBER)
+AS
+BEGIN
+    UPDATE "TB_INCIDENTE"
+    SET
+     VAR_INC_NOMBRE = VARINCNOMBRE,
+     VAR_INC_FECHA =  VARINCFECHA,
+     VAR_INC_STATUS = VARINCSTATUS,
+     NBR_CI_ID =          NBRCIID
+    
+    
+    WHERE NBR_INC_ID = NBRINCID ;
+    END;
+/
+ 
+set autoprint on;
+exec "ActualizarIncidente" (2627,'Hermanos Restrepo','2020-02-29','Caso Inactivo',2627);
+
+
+COLUMN NBR_INC_ID FORMAT 99999 HEADING 'ID'
+COLUMN VAR_INC_NOMBRE FORMAT A15 HEADING 'Nombre'
+COLUMN VAR_INC_FECHA FORMAT A15 HEADING 'Fecha'
+COLUMN VAR_INC_STATUS FORMAT A15 HEADING 'Estatus'
+COLUMN NBR_CI_ID FORMAT 99999 HEADING 'ID Ciudadano'
+
+SELECT * FROM TB_INCIDENTE WHERE "NBR_INC_ID" like 2627;
+
+-----------------------------------------UPDATE CIVIL---------------------------------------------------------------
+
+CREATE OR REPLACE PROCEDURE "ActualizarCivil" (  NBRCIID IN NUMBER, VARCINOMBRE  VARCHAR2 , VARCISTATUS  VARCHAR2, NBRBAID in NUMBER)
+AS
+BEGIN
+    UPDATE "TB_CIVIL"
+    SET
+     VAR_CI_NOMBRE = VARCINOMBRE,
+     VAR_CI_STATUS =  VARCISTATUS,
+     NBR_BA_ID = NBRBAID
+    
+    
+    WHERE NBR_CI_ID = NBRCIID ;
+    END;
+/
+ 
+set autoprint on;
+exec "ActualizarCivil" (796,'Mark Smith','Viudo',796);
+
+
+
+COLUMN nbr_ci_id FORMAT 99999
+COLUMN var_ci_nombre FORMAT A20
+COLUMN var_ci_status FORMAT A20
+COLUMN nbr_ba_id FORMAT 99999
+SELECT * FROM TB_CIVIL WHERE "NBR_CI_ID" like 796;
+
+-----------------------------------------UPDATE UPC--------------------------------------------------------------------------
+
+
+CREATE OR REPLACE PROCEDURE "ActualizarUPC" (  NBRUPCID IN NUMBER, VARUPCNOMBRE VARCHAR2 , VARUPCSTATUS  VARCHAR2, NBRCIUID in NUMBER)
+AS
+BEGIN
+    UPDATE "TB_UPC"
+    SET
+      VAR_UPC_NOMBRE = VARUPCNOMBRE,
+      VAR_UPC_STATUS =  VARUPCSTATUS,
+     NBR_CIU_ID = NBRCIUID
+    
+    
+    WHERE NBR_UPC_ID = NBR_UPC_ID ;
+    END;
+/
+ 
+set autoprint on;
+exec "ActualizarUPC" (884,'San Juan','Inactivo',884);
+
+
+COLUMN nbr_upc_id FORMAT 99999
+COLUMN var_upc_nombre FORMAT A20
+COLUMN var_upc_status FORMAT A10
+COLUMN nbr_ciu_id FORMAT 99999
+
+SELECT * FROM TB_UPC WHERE "NBR_UPC_ID" like 884;
+-------------------------------------------------------------------------------------------------------
+======================================================================================================
+				tb_ policia
+======================================================================================================
+
+COLUMN nbr_pol_id FORMAT 9999
+COLUMN var_pol_nombre FORMAT A50
+COLUMN var_pol_cargo FORMAT A50
+COLUMN var_pol_salario FORMAT A50
+COLUMN var_pol_status FORMAT A50
+
+
+CREATE OR REPLACE PROCEDURE dlt_eliminar_policia(pr_pol_id IN NUMBER,
+    pr_pol_nombre IN VARCHAR2,
+    pr_pol_cargo IN VARCHAR2,
+    pr_pol_salario IN VARCHAR2,
+    pr_pol_status IN VARCHAR2
+)
+IS
+BEGIN
+  DELETE FROM tb_policia
+  WHERE 
+    (pr_pol_id IS NULL OR nbr_pol_id = pr_pol_id)
+    AND (pr_pol_nombre IS NULL OR var_pol_nombre = pr_pol_nombre)
+    AND (pr_pol_cargo IS NULL OR var_pol_cargo = pr_pol_cargo)
+    AND (pr_pol_salario IS NULL OR var_pol_salario = pr_pol_salario)
+    AND (pr_pol_status IS NULL OR var_pol_status = pr_pol_status);
+  COMMIT;
+  DBMS_OUTPUT.PUT_LINE('Se han eliminado los registros ingresados');
+END dlt_eliminar_policia;
+/
+
+
+EXEC dlt_eliminar_policia('5001','Heather Taylor','Sargento','1250','Inactivo');
+
+======================================================================================================
+					tb_upc
+======================================================================================================
+
+COLUMN nbr_upc_id FORMAT 9999
+COLUMN var_upc_nombre FORMAT A20
+COLUMN var_upc_status FORMAT A20
+COLUMN nbr_ciu_id FORMAT 9999
+
+
+
+CREATE OR REPLACE PROCEDURE dlt_eliminar_upc(pr_upc_id IN NUMBER,
+    pr_upc_nombre IN VARCHAR2,
+    pr_upc_status IN VARCHAR2,
+    pr_ciu_id IN NUMBER
+)
+IS
+BEGIN
+  DELETE FROM tb_upc
+  WHERE 
+    (pr_upc_id IS NULL OR nbr_upc_id = pr_upc_id)
+    AND (pr_upc_nombre IS NULL OR var_upc_nombre = pr_upc_nombre)
+    AND (pr_upc_status IS NULL OR var_upc_status = pr_upc_status)
+    AND (pr_ciu_id IS NULL OR nbr_ciu_id = pr_ciu_id);
+  COMMIT;
+  DBMS_OUTPUT.PUT_LINE('Se han eliminado de la tabla tb_upc. los registros ingresado');
+
+END dlt_eliminar_upc;
+/
+
+EXEC dlt_eliminar_upc('5001', 'South Jennifer', 'Activo', '5001' );
+
+
+======================================================================================================
+				tb_incidente
+======================================================================================================
+
+COLUMN nbr_inc_id FORMAT 9999
+COLUMN var_inc_nombre FORMAT A20
+COLUMN var_inc_fecha FORMAT A20
+COLUMN var_inc_status FORMAT A20
+COLUMN nbr_ciu_id FORMAT 9999
+
+
+CREATE OR REPLACE PROCEDURE dlt_eliminar_incidente(pr_inc_id IN NUMBER DEFAULT NULL,
+    pr_inc_nombre IN VARCHAR2 DEFAULT NULL,
+    pr_inc_fecha IN VARCHAR2 DEFAULT NULL,
+    pr_inc_status IN VARCHAR2 DEFAULT NULL,
+    pr_ci_id IN NUMBER DEFAULT NULL
+)
+IS
+BEGIN
+  DELETE FROM tb_incidente
+  WHERE 
+    (pr_inc_id IS NULL OR nbr_inc_id = pr_inc_id)
+    AND (pr_inc_nombre IS NULL OR var_inc_nombre = pr_inc_nombre)
+    AND (pr_inc_fecha IS NULL OR var_inc_fecha = pr_inc_fecha)
+    AND (pr_inc_status IS NULL OR var_inc_status = pr_inc_status)
+    AND (pr_ci_id IS NULL OR nbr_ci_id = pr_ci_id);
+END;
+/
+
+EXEC dlt_eliminar_incidente('5007', 'Robo Joyas', '2023-02-16', 'Caso Activo' , '8');
+
+
+
+======================================================================================================
+				tb_delincuentes
+======================================================================================================
+
+
+COLUMN nbr_delin_id FORMAT 9999
+COLUMN var_delin_nombre FORMAT A20
+COLUMN var_delin_pandilla FORMAT A20
+COLUMN var_delin_apodo FORMAT A20
+COLUMN var_delin_status FORMAT A20
+
+	
+CREATE OR REPLACE PROCEDURE dlt_eliminar_delincuentes(
+    id_delin IN NUMBER DEFAULT NULL,
+    nombre_delin IN VARCHAR2 DEFAULT NULL,
+    pandilla_delin IN VARCHAR2 DEFAULT NULL,
+    apodo_delin IN VARCHAR2 DEFAULT NULL,
+    status_delin IN VARCHAR2 DEFAULT NULL
+) AS
+BEGIN
+    DELETE FROM tb_delincuente
+    WHERE (id_delin IS NULL OR nbr_delin_id = id_delin)
+      AND (nombre_delin IS NULL OR var_delin_nombre = nombre_delin)
+      AND (pandilla_delin IS NULL OR var_delin_pandilla = pandilla_delin)
+      AND (apodo_delin IS NULL OR var_delin_apodo = apodo_delin)
+      AND (status_delin IS NULL OR var_delin_status = status_delin);
+END;
+/
+
+
+EXEC dlt_eliminar_delincuentes('5001', 'Daniel Sosa', 'Vatos', 'Chuky' , 'Activo');
+
+
+======================================================================================================
+				tb_asalto 
+======================================================================================================
+
+
+COLUMN nbr_asl_id FORMAT 9999
+COLUMN var_asl_forma_asaltar FORMAT A20
+COLUMN nbr_ba_id FORMAT A20
+COLUMN nbr_ba_id FORMAT 9999
+COLUMN nbr_delin_id FORMAT 9999
+
+
+
+CREATE OR REPLACE PROCEDURE dlt_eliminar_asaltos( id_asl IN NUMBER DEFAULT NULL,
+    forma_asl IN VARCHAR2 DEFAULT NULL,
+    id_ba IN NUMBER DEFAULT NULL,
+    id_delin IN NUMBER DEFAULT NULL
+) AS
+BEGIN
+    DELETE FROM tb_asalto
+    WHERE (id_asl IS NULL OR nbr_asl_id = id_asl)
+      AND (forma_asl IS NULL OR var_asl_forma_asaltar = forma_asl)
+      AND (id_ba IS NULL OR nbr_ba_id = id_ba)
+      AND (id_delin IS NULL OR nbr_delin_id = id_delin);
+END;
+/
+
+
+EXEC dlt_eliminar_asaltos('5001', 'Arma Cortopulsante', '2', '2');
+
+
+_____________________________________________________________________________________________________________________________________________________
+			 															    |
+FUNCION 1																	    |
+____________________________________________________________________________________________________________________________________________________|
+
+
+CREATE OR REPLACE FUNCTION fn_contar_upc(nombre_ciudad IN VARCHAR2, nombre_barrio IN VARCHAR2)
+RETURN NUMBER
+IS
+    nbr_total NUMBER;
+BEGIN
+    SELECT COUNT(tb_upc.nbr_upc_id)
+    INTO nbr_total
+    FROM tb_ciudad
+    INNER JOIN tb_upc ON tb_upc.nbr_ciu_id = tb_ciudad.nbr_ciu_id
+    INNER JOIN tb_habitad ON tb_habitad.nbr_upc_id = tb_upc.nbr_upc_id
+    INNER JOIN tb_policia ON tb_policia.nbr_pol_id = tb_habitad.nbr_pol_id
+    INNER JOIN tb_barrio ON tb_barrio.nbr_pol_id = tb_policia.nbr_pol_id
+    WHERE tb_ciudad.var_ciu_nombre = nombre_ciudad
+      AND tb_barrio.var_ba_nombre = nombre_barrio;
+
+    RETURN nbr_total;
+END;
+/
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+SET SERVEROUTPUT ON
+DECLARE
+    v_total_upc NUMBER;
+BEGIN
+    v_total_upc := fn_contar_upc('Quito', 'San Roque');
+
+    DBMS_OUTPUT.PUT_LINE('En la ciudad '|| 'Quito' || ' el barrio ' || 'San Roque' || ' tiene un total de ' || v_total_upc || ' UPCs.');
+END;
+/
+
+____________________________________________________________
+			 				    |
+FUNCION 2	(BETA)				            |
+____________________________________________________________|
+
+CREATE OR REPLACE FUNCTION fn_contar_pandillas(
+    nombre_barrio IN VARCHAR2
+)
+RETURN NUMBER
+IS
+    v_total NUMBER;
+BEGIN
+    SELECT COUNT(DISTINCT tb_delincuente.var_delin_pandilla)
+    INTO v_total
+    FROM tb_asalto
+    INNER JOIN tb_delincuente ON tb_delincuente.nbr_delin_id = tb_asalto.nbr_delin_id
+    INNER JOIN tb_barrio ON tb_barrio.nbr_ba_id = tb_asalto.nbr_ba_id
+    INNER JOIN tb_ciudad ON tb_ciudad.nbr_ciu_id = tb_barrio.nbr_ciu_id
+    WHERE tb_barrio.var_ba_nombre = nombre_barrio
+      AND tb_ciudad.var_ciu_nombre = 'Quito';
+
+    RETURN v_total;
+END;
+/
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+SET SERVEROUTPUT ON
+DECLARE
+    v_total_pandillas NUMBER;
+BEGIN
+    -- Solicitar al usuario el nombre del barrio a buscar
+    DBMS_OUTPUT.PUT('Ingrese el nombre del barrio a buscar: ');
+    DBMS_OUTPUT.GET_LINE(v_nombre_barrio);
+
+    -- Llamar a la función y pasar el parámetro necesario
+    v_total_pandillas := fn_contar_pandillas(v_nombre_barrio);
+
+    -- Mostrar el resultado al usuario
+    DBMS_OUTPUT.PUT_LINE('En el barrio ' || v_nombre_barrio || ' de la ciudad de Quito, se han reportado ' || v_total_pandillas || ' pandillas.');
+END;
+
+
+
+
+____________________________________________________________
+			 				    |
+Procedimiento 3	(BETA)				            |
+____________________________________________________________|
+
+
+CREATE OR REPLACE PROCEDURE pr_formas_asalto (
+    nombre_barrio IN VARCHAR2
+)
+IS
+    v_cursor SYS_REFCURSOR;
+BEGIN
+    OPEN v_cursor FOR
+        SELECT tb_asaltar.var_asl_forma_asaltar
+        FROM tb_ciudad
+        INNER JOIN tb_upc ON tb_upc.nbr_ciu_id = tb_ciudad.nbr_ciu_id
+        INNER JOIN tb_habitad ON tb_habitad.nbr_upc_id = tb_upc.nbr_upc_id
+        INNER JOIN tb_policia ON tb_policia.nbr_pol_id = tb_habitad.nbr_pol_id
+        INNER JOIN tb_barrio ON tb_barrio.nbr_pol_id = tb_policia.nbr_pol_id
+        INNER JOIN tb_civil ON tb_civil.nbr_ba_id = tb_barrio.nbr_ba_id
+        INNER JOIN tb_incidente ON tb_incidente.nbr_ci_id = tb_civil.nbr_ci_id
+        INNER JOIN tb_asaltar ON tb_asaltar.nbr_ba_id = tb_barrio.nbr_ba_id
+        WHERE tb_ciudad.var_ciu_nombre = 'Quito'
+            AND tb_barrio.var_ba_nombre = nombre_barrio
+            AND tb_incidente.var_inc_status = 'Caso cerrado'
+        GROUP BY tb_asaltar.var_asl_forma_asaltar;
+    DBMS_SQL.RETURN_RESULT(v_cursor);
+END;
+/
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+SET SERVEROUTPUT ON
+DECLARE
+    v_cursor SYS_REFCURSOR;
+    v_forma_asalto VARCHAR2(100);
+BEGIN
+    -- Llamar al procedimiento y pasar los parámetros necesarios
+    pr_formas_asalto('San Diego');
+
+    -- Mostrar el mensaje con los valores obtenidos
+    LOOP
+        FETCH v_cursor INTO v_forma_asalto;
+        EXIT WHEN v_cursor%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('En la ciudad de Quito, en el barrio ' || nombre_barrio || ' las formas de asalto son ' || v_forma_asalto);
+    END LOOP;
+END;
+/
+----------------------------------------------------------------------------------------------
+--------------------------TABLA COORDENADA SELECT-----------------------------------------------------------------------------
+
+--Obtener las coordenadas de todas las provincias:
+
+SELECT p.var_pro_nombre, c.var_coor_latitud, c.var_coor_longitud
+FROM tb_provincia p
+INNER JOIN tb_coordenada c ON p.nbr_coor_id = c.nbr_coor_id;
+
+
+CREATE OR REPLACE PROCEDURE pr_info_prov_coordenada(info OUT SYS_REFCURSOR)
+AS
+BEGIN
+  OPEN info FOR
+    SELECT p.var_pro_nombre, c.var_coor_latitud, c.var_coor_longitud
+    FROM tb_provincia p
+    INNER JOIN tb_coordenada c ON p.nbr_coor_id = c.nbr_coor_id;
+END;
+/
+
+VAR cur REFCURSOR;
+EXEC pr_info_prov_coordenada(:cur);
+PRINT cur;
+
+SELECT pr_info_prov_coordenada(:cur) FROM DUAL;
+
+-------------------------------------------------------------------------------
+--Obtener los asaltos cometidos por un delincuente específico:
+SELECT a.nbr_asl_id, a.var_asl_forma_asaltar, b.var_ba_nombre
+FROM tb_asalto a
+INNER JOIN tb_barrio b ON a.nbr_ba_id = b.nbr_ba_id
+WHERE a.nbr_delin_id = 1; -- Cambia el número 1 por el ID del delincuente que quieras consultar
+
+
+COLUMN nbr_asl_id FORMAT 9999
+COLUMN var_asl_forma_asaltar FORMAT A50
+COLUMN var_ba_nombre FORMAT A50
+
+
+CREATE OR REPLACE PROCEDURE pr_info_asalto (
+    p_delin_id IN NUMBER,
+    p_result OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+  OPEN p_result FOR
+    SELECT a.nbr_asl_id, a.var_asl_forma_asaltar, b.var_ba_nombre
+    FROM tb_asalto a
+    INNER JOIN tb_barrio b ON a.nbr_ba_id = b.nbr_ba_id
+    WHERE a.nbr_delin_id = p_delin_id;
+END;
+/
+
+VAR my_cursor REFCURSOR;
+EXEC pr_info_asalto(5, :my_cursor);
+PRINT my_cursor;
+
+----------------------------------------------------------------------------
+--Obtener los policías que trabajan en una UPC específica:
+SELECT p.var_pol_nombre, p.var_pol_cargo
+FROM tb_policia p
+INNER JOIN tb_habitad h ON p.nbr_pol_id = h.nbr_pol_id
+INNER JOIN tb_upc u ON h.nbr_upc_id = u.nbr_upc_id
+WHERE u.nbr_upc_id = 1; -- Cambia el número 1 por el ID de la UPC que quieras consultar
+
+
+CREATE OR REPLACE PROCEDURE pr_info_policia_upc(id_upc IN tb_upc.nbr_upc_id%TYPE, info OUT SYS_REFCURSOR)
+AS
+BEGIN
+  OPEN info FOR
+    SELECT p.var_pol_nombre, p.var_pol_cargo
+    FROM tb_policia p
+    INNER JOIN tb_habitad h ON p.nbr_pol_id = h.nbr_pol_id
+    INNER JOIN tb_upc u ON h.nbr_upc_id = u.nbr_upc_id
+    WHERE u.nbr_upc_id = id_upc;
+END;
+/
+
+set serverout on
+DECLARE
+  my_cursor SYS_REFCURSOR;
+  var_pol_nombre tb_policia.var_pol_nombre%TYPE;
+  var_pol_cargo tb_policia.var_pol_cargo%TYPE;
+BEGIN
+  pr_info_policia_upc(1, my_cursor);
+
+  LOOP
+    FETCH my_cursor INTO var_pol_nombre, var_pol_cargo;
+    EXIT WHEN my_cursor%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE(var_pol_nombre || ' - ' || var_pol_cargo);
+  END LOOP;
+
+  CLOSE my_cursor;
+END;
+/
+
+VAR cur REFCURSOR;
+EXEC pr_info_policia_upc(1, :cur);
+PRINT cur;
+-----------------------------------------------------------------------------
+--Obtener todas las ciudades de una provincia por su ID:
+
+CREATE OR REPLACE PROCEDURE pr_ciudades_por_provincia(id_provincia IN tb_provincia.nbr_pro_id%TYPE, ciudades OUT SYS_REFCURSOR)
+AS
+BEGIN
+  OPEN ciudades FOR
+    SELECT *
+    FROM tb_ciudad
+    WHERE nbr_parro_id IN (
+      SELECT nbr_parro_id
+      FROM tb_parroquia
+      WHERE nbr_can_id IN (
+        SELECT nbr_can_id
+        FROM tb_canton
+        WHERE nbr_pro_id = id_provincia
+      )
+    );
+END;
+/
+
+VARIABLE ciudades REFCURSOR
+EXEC pr_ciudades_por_provincia(id_provincia => 1, ciudades => :ciudades)
+PRINT ciudades
+
+set serverout on
+DECLARE
+  ciudad_cursor SYS_REFCURSOR;
+  ciudad tb_ciudad%ROWTYPE;
+BEGIN
+  pr_ciudades_por_provincia(id_provincia => 1, ciudades => ciudad_cursor);
+  LOOP
+    FETCH ciudad_cursor INTO ciudad;
+    EXIT WHEN ciudad_cursor%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE(ciudad.nbr_ciu_id || ' - ' || ciudad.var_ciu_nombre || ' - ' || ciudad.var_ciu_status);
+  END LOOP;
+  CLOSE ciudad_cursor;
+END;
+/
+
+
+VAR cur REFCURSOR;
+EXEC pr_ciudades_por_provincia(1, :cur);
+PRINT cur;
+----------------------------------------------------------------------------
+--Obtener la lista de barrios que estan en vigencia y que están a cargo de un oficial de policía por su ID
+CREATE OR REPLACE PROCEDURE pr_barrios_por_policia(id_policia IN tb_policia.nbr_pol_id%TYPE, barrios OUT SYS_REFCURSOR)
+AS
+BEGIN
+  OPEN barrios FOR
+    SELECT *
+    FROM tb_barrio
+    WHERE nbr_pol_id = id_policia;
+END;
+/
+
+VAR cur_barrios REFCURSOR;
+EXEC pr_barrios_por_policia(10, :cur_barrios);
+PRINT cur_barrios;
+
+------------------------------------------------------------------------------
+--Obtener los nombres de las ciudades donde se encuentra una determinada UPC
+SELECT tb_ciudad.var_ciu_nombre
+FROM tb_ciudad
+INNER JOIN tb_parroquia ON tb_parroquia.nbr_parro_id = tb_ciudad.nbr_parro_id
+INNER JOIN tb_canton ON tb_canton.nbr_can_id = tb_parroquia.nbr_can_id
+INNER JOIN tb_provincia ON tb_provincia.nbr_pro_id = tb_canton.nbr_pro_id
+INNER JOIN tb_upc ON tb_upc.nbr_ciu_id = tb_ciudad.nbr_ciu_id
+WHERE tb_upc.nbr_upc_id = 282;
+
+CREATE OR REPLACE PROCEDURE pr_ciudad_de_upc(id_upc IN tb_upc.nbr_upc_id%TYPE, ciudad OUT VARCHAR2)
+AS
+BEGIN
+  SELECT tb_ciudad.var_ciu_nombre
+  INTO ciudad
+  FROM tb_ciudad
+  INNER JOIN tb_parroquia ON tb_parroquia.nbr_parro_id = tb_ciudad.nbr_parro_id
+  INNER JOIN tb_canton ON tb_canton.nbr_can_id = tb_parroquia.nbr_can_id
+  INNER JOIN tb_provincia ON tb_provincia.nbr_pro_id = tb_canton.nbr_pro_id
+  INNER JOIN tb_upc ON tb_upc.nbr_ciu_id = tb_ciudad.nbr_ciu_id
+  WHERE tb_upc.nbr_upc_id = id_upc;
+END;
+/
+
+set serverout on
+DECLARE
+  v_ciudad VARCHAR2(100);
+BEGIN
+  pr_ciudad_de_upc(282, v_ciudad);
+  DBMS_OUTPUT.PUT_LINE('La UPC 282 está en la ciudad de ' || v_ciudad);
+END;
+/
+-------------------------------------------------------------------------
+--Obtener el número de delincuentes que han cometido un asalto en un barrio en particular:
+SELECT COUNT(*)
+FROM tb_asalto
+INNER JOIN tb_barrio ON tb_barrio.nbr_ba_id = tb_asalto.nbr_ba_id
+INNER JOIN tb_delincuente ON tb_delincuente.nbr_delin_id = tb_asalto.nbr_delin_id
+WHERE tb_barrio.nbr_ba_id = 200;
+
+CREATE OR REPLACE PROCEDURE pr_count_asalto_por_barrio(barrio_id IN tb_barrio.nbr_ba_id%TYPE, contador OUT NUMBER)
+AS
+BEGIN
+  SELECT COUNT(*)
+  INTO contador
+  FROM tb_asalto
+  INNER JOIN tb_barrio ON tb_barrio.nbr_ba_id = tb_asalto.nbr_ba_id
+  INNER JOIN tb_delincuente ON tb_delincuente.nbr_delin_id = tb_asalto.nbr_delin_id
+  WHERE tb_barrio.nbr_ba_id = barrio_id;
+END;
+/
+
+VAR contador NUMBER;
+EXEC pr_count_asalto_por_barrio(200, :contador);
+PRINT contador;
+------------------------------------------------------------------------------------------
+--Obtener el salario promedio de todos los policías en una determinada UPC:
+
+SELECT AVG(var_pol_salario)
+FROM tb_policia
+INNER JOIN tb_habitad ON tb_habitad.nbr_pol_id = tb_policia.nbr_pol_id
+INNER JOIN tb_upc ON tb_upc.nbr_upc_id = tb_habitad.nbr_upc_id
+WHERE tb_upc.nbr_upc_id = 25;
+
+CREATE OR REPLACE PROCEDURE pr_promedio_salario_por_upc(id_upc IN tb_upc.nbr_upc_id%TYPE, promedio_salario OUT NUMBER)
+AS
+BEGIN
+  SELECT AVG(var_pol_salario) INTO promedio_salario
+  FROM tb_policia
+  INNER JOIN tb_habitad ON tb_habitad.nbr_pol_id = tb_policia.nbr_pol_id
+  INNER JOIN tb_upc ON tb_upc.nbr_upc_id = tb_habitad.nbr_upc_id
+  WHERE tb_upc.nbr_upc_id = id_upc;
+END;
+/
+
+VAR promedio NUMBER;
+EXEC pr_promedio_salario_por_upc(25, :promedio);
+PRINT promedio;
+--------------------------------------------------------------------------
+--Stored procedure para buscar la cantidad de habitad que hay en una UPC determinada:
+
+CREATE PROCEDURE pr_cantidad_habitad_en_upc(nbr_upc_id IN NUMBER, cantidad_habitad OUT NUMBER)
+IS
+BEGIN
+  SELECT COUNT(*) INTO cantidad_habitad
+  FROM tb_habitad
+  WHERE tb_habitad.nbr_upc_id = nbr_upc_id;
+END;
+/
+
+set serverout on
+DECLARE
+  cantidad_habitad NUMBER;
+BEGIN
+  -- Ejecutar el procedimiento y pasarle el parámetro de entrada
+  pr_cantidad_habitad_en_upc(1, cantidad_habitad);
+  
+  -- Mostrar el resultado
+  DBMS_OUTPUT.PUT_LINE('La cantidad de habitad en la UPC es: ' || cantidad_habitad);
+END;
+/
+--------------------------------------------------------------------------------------
+--Mostrar el nombre de todos los barrios donde los delincuentes han cometido al menos un asalto:
+SELECT DISTINCT b.var_ba_nombre
+FROM tb_barrio b
+JOIN tb_asalto a ON b.nbr_ba_id = a.nbr_ba_id
+JOIN tb_delincuente d ON a.nbr_delin_id = d.nbr_delin_id;
+
+CREATE OR REPLACE PROCEDURE PR_MOSTRAR_BARRIOS_DE_DELINCUENTES
+AS
+BEGIN
+  FOR c IN (SELECT DISTINCT b.var_ba_nombre
+            FROM tb_barrio b
+            JOIN tb_asalto a ON b.nbr_ba_id = a.nbr_ba_id
+            JOIN tb_delincuente d ON a.nbr_delin_id = d.nbr_delin_id)
+  LOOP
+    DBMS_OUTPUT.PUT_LINE(c.var_ba_nombre);
+  END LOOP;
+END;
+/
+
+EXECUTE PR_MOSTRAR_BARRIOS_DE_DELINCUENTES;
